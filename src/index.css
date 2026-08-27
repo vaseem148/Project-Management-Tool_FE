@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-50: #f2f0ff;
+  --color-brand-100: #e6e2ff;
+  --color-brand-200: #d0c8ff;
+  --color-brand-300: #b2a3ff;
+  --color-brand-400: #9377ff;
+  --color-brand-500: #7c4dff;
+  --color-brand-600: #6d33f5;
+  --color-brand-700: #5c25d8;
+  --color-brand-800: #4b20af;
+  --color-brand-900: #3f1e8b;
+
+  --color-ink-50: #f7f8fa;
+  --color-ink-100: #eef0f4;
+  --color-ink-200: #dfe3ea;
+  --color-ink-300: #c3cad6;
+  --color-ink-400: #8f9aad;
+  --color-ink-500: #6b7688;
+  --color-ink-600: #4e5768;
+  --color-ink-700: #383f4d;
+  --color-ink-800: #1e2430;
+  --color-ink-900: #141822;
+  --color-ink-950: #0b0e15;
+
+  --radius-xl2: 1.125rem;
+  --shadow-glow: 0 0 0 1px rgb(124 77 255 / 0.25), 0 12px 40px -12px rgb(124 77 255 / 0.45);
+  --shadow-card: 0 1px 2px rgb(16 20 30 / 0.06), 0 8px 24px -12px rgb(16 20 30 / 0.14);
+
+  --animate-fade-up: fade-up 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-pop: pop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+}
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+@keyframes float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+
+/* ------------------------------------------------------------------ tokens */
+:root {
+  --app-bg: #f6f7fb;
+  --app-panel: #ffffff;
+  --app-panel-2: #fbfbfe;
+  --app-border: #e6e8f0;
+  --app-text: #141822;
+  --app-muted: #6b7688;
+  --app-ring: rgb(124 77 255 / 0.35);
+  color-scheme: light;
+}
+
+.dark {
+  --app-bg: #0a0c12;
+  --app-panel: #11141d;
+  --app-panel-2: #161a25;
+  --app-border: #232838;
+  --app-text: #eef0f6;
+  --app-muted: #8f9aad;
+  --app-ring: rgb(124 77 255 / 0.5);
+  color-scheme: dark;
+}
+
+@layer base {
+  * { border-color: var(--app-border); }
+  html, body, #root { height: 100%; }
+  body {
+    background-color: var(--app-bg);
+    color: var(--app-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgb(124 77 255 / 0.28); }
+  :focus-visible { outline: 2px solid var(--app-ring); outline-offset: 2px; }
+}
+
+@layer components {
+  .surface {
+    background-color: var(--app-panel);
+    border: 1px solid var(--app-border);
+  }
+  .surface-2 { background-color: var(--app-panel-2); }
+  .text-muted { color: var(--app-muted); }
+  .glass {
+    background: color-mix(in srgb, var(--app-panel) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--app-border);
+  }
+  .brand-gradient { background-image: linear-gradient(120deg, #7c4dff 0%, #6366f1 45%, #06b6d4 100%); }
+  .brand-text {
+    background-image: linear-gradient(110deg, #9377ff, #6366f1 45%, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--app-border) 70%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--app-border) 70%, transparent) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .skeleton {
+    background-image: linear-gradient(90deg,
+      color-mix(in srgb, var(--app-border) 40%, transparent) 25%,
+      color-mix(in srgb, var(--app-border) 90%, transparent) 37%,
+      color-mix(in srgb, var(--app-border) 40%, transparent) 63%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+  .scroll-thin { scrollbar-width: thin; scrollbar-color: var(--app-border) transparent; }
+  .scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb {
+    background: var(--app-border); border-radius: 999px;
+  }
+  .scroll-thin::-webkit-scrollbar-track { background: transparent; }
+}
