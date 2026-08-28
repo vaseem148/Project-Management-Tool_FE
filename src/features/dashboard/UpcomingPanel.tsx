@@ -59,7 +59,7 @@ export function UpcomingPanel({ tasks, className }: UpcomingPanelProps) {
                     <Tooltip label={`${priority.label} priority`}>
                       <span
                         aria-hidden="true"
-                        className={cn('mt-0.5 h-2 w-2 shrink-0 rounded-full', priority.dot)}
+                        className={cn('h-2 w-2 shrink-0 rounded-full', priority.dot)}
                       />
                     </Tooltip>
                     <div className="min-w-0 flex-1">
@@ -79,8 +79,10 @@ export function UpcomingPanel({ tasks, className }: UpcomingPanelProps) {
                                 'border-transparent bg-rose-500/14 text-rose-600 dark:bg-rose-500/16 dark:text-rose-300',
                             )}
                           >
-                            <CalendarClock className="h-3 w-3 shrink-0" aria-hidden="true" />
-                            {overdue ? `Overdue · ${due}` : due}
+                            <span className="inline-flex items-center gap-1">
+                              <CalendarClock className="h-3 w-3 shrink-0" aria-hidden="true" />
+                              {overdue ? `Overdue · ${due}` : due}
+                            </span>
                           </Badge>
                         )}
                       </div>

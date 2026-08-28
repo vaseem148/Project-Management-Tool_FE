@@ -171,12 +171,13 @@ interface SortHeaderProps {
 }
 
 function SortHeader({ label, sortKey, sort, onSort, className }: SortHeaderProps) {
-  const active = sort?.key === sortKey
-  const Icon = !active ? ChevronsUpDown : sort.dir === 'asc' ? ArrowUp : ArrowDown
+  const dir = sort && sort.key === sortKey ? sort.dir : null
+  const active = dir !== null
+  const Icon = dir === null ? ChevronsUpDown : dir === 'asc' ? ArrowUp : ArrowDown
   return (
     <th
       scope="col"
-      aria-sort={active ? (sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}
+      aria-sort={dir === null ? 'none' : dir === 'asc' ? 'ascending' : 'descending'}
       className={cn(
         'sticky top-0 z-10 border-b border-[var(--app-border)] bg-[var(--app-panel)] px-4 py-2.5 text-left',
         className,
